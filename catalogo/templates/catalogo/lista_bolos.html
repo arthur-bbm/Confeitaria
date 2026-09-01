@@ -11,7 +11,11 @@
     {% if bolos%}
         <ul>
             {% for bolo in bolos %}
-                <li>{{bolo.nome}} - R$ {{bolo.preco}}</li>
+                <li>
+                    <a href="{% url 'catalogo:lista_bolos' bolo.pk %}">
+                        <strong>{{ bolo.nome }}</strong>
+                    </a> - {{ bolo.preco }}
+                </li>
             {% endfor %}
         </ul>
     {% else %}
