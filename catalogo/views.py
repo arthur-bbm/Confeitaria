@@ -31,26 +31,26 @@ def novo_bolo(request):
 
 def bolo_detalhes(request, pk):
 
-    bolo = get_object_or_404('Bolo', pk=pk)
+    bolo = get_object_or_404(Bolo, pk=pk)
 
     return render(request,'catalogo/bolo_detalhes.html',{'bolo' : bolo})
 
 
 def editar_bolo(request, pk):
-    bolo = get_object_or_404('Bolo', pk=pk)
+    bolo = get_object_or_404(Bolo, pk=pk)
 
     if request.method == 'POST':
         form = BoloForm(request.POST, instance=bolo)
         if form.is_valid():
             form.save()
             return redirect('catalogo:bolo_detalhes', pk=bolo.pk)
-        else:
-            form = BoloForm(instance=bolo)
+    else:
+        form = BoloForm(instance=bolo)
 
         return render(request,'catalogo/bolo_form.html',{'form' : form})
 
 def apagar_bolo(request, pk):
-    bolo = get_object_or_404('Bolo', pk=pk)
+    bolo = get_object_or_404(Bolo, pk=pk)
 
     if request.method == 'POST':
         bolo.delete()

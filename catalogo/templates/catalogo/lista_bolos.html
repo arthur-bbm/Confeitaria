@@ -12,7 +12,7 @@
         <ul>
             {% for bolo in bolos %}
                 <li>
-                    <a href="{% url 'catalogo:lista_bolos' bolo.pk %}">
+                    <a href="{% url 'catalogo:bolo_detalhes' bolo.pk %}">
                         <strong>{{ bolo.nome }}</strong>
                     </a> - {{ bolo.preco }}
                 </li>
