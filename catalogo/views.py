@@ -41,14 +41,18 @@ def editar_bolo(request, pk):
 
     if request.method == 'POST':
         form = BoloForm(request.POST, instance=bolo)
+
         if form.is_valid():
             form.save()
             return redirect('catalogo:bolo_detalhes', pk=bolo.pk)
     else:
         form = BoloForm(instance=bolo)
 
-        return render(request,'catalogo/bolo_form.html',{'form' : form})
-
+    return render(
+        request,
+        'catalogo/bolo_form.html',
+        {'form': form}
+    )
 def apagar_bolo(request, pk):
     bolo = get_object_or_404(Bolo, pk=pk)
 
