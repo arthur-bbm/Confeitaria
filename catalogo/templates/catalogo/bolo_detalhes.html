@@ -17,6 +17,12 @@
     <p><strong>Preco: </strong> {{ bolo.preco }}</p>
     <p><strong>Diponivel: </strong> {{ bolo.disponivel }}</p>
 
+    {% if bolo.foto %}
+        <img src="{{ bolo.foto.url }}" alt="Foto de {{ bolo.nome}}" width="150"/>
+    {% else %}
+        <p><i>Sem foto de perfil</i></p>
+    {% endif %}
+
     <a href="{% url 'catalogo:editar_bolo' bolo.pk %}">Editar Bolo</a>
     <a href="{% url 'catalogo:apagar_bolo' bolo.pk %}">Apagar Bolo</a>
 

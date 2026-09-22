@@ -4,4 +4,4 @@ from .models import Bolo
 class BoloForm(forms.ModelForm):
     class Meta:
         model = Bolo
-        fields = ['nome', 'sabor', 'descricao', 'preco', 'disponivel']
+        fields = ['nome', 'sabor', 'descricao', 'preco', 'disponivel', 'foto']
