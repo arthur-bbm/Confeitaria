@@ -119,3 +119,5 @@ STATIC_URL = 'static/'
 
 MIDIA_URL = '/midia/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'midia')
+
+LOGIN_URL = '/admin/login/'

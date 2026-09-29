@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Bolo
 from .forms import BoloForm
+from django.contrib.auth.decorators import login_required
 
 def pagina_inicial(request):
     return render(request, 'catalogo/index.html')
+
 
 def lista_bolos(request):
     #Busca todos os bolos no banco de dados
@@ -19,7 +21,9 @@ def novo_bolo(request):
         form = BoloForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            bolo = form.save(commit=False)
+            bolo.user = request.user
+            bolo.save()
             return redirect('catalogo:lista_bolos')
     else:
         form = BoloForm()
@@ -35,9 +39,9 @@ def bolo_detalhes(request, pk):
 
     return render(request,'catalogo/bolo_detalhes.html',{'bolo' : bolo})
 
-
+@login_required()
 def editar_bolo(request, pk):
-    bolo = get_object_or_404(Bolo, pk=pk)
+    bolo = get_object_or_404(Bolo, pk=pk, user=request.user)
 
     if request.method == 'POST':
         form = BoloForm(request.POST, request.FILES, instance=bolo)
@@ -53,11 +57,14 @@ def editar_bolo(request, pk):
         'catalogo/bolo_form.html',
         {'form': form}
     )
+
+@login_required()
 def apagar_bolo(request, pk):
-    bolo = get_object_or_404(Bolo, pk=pk)
+    bolo = get_object_or_404(Bolo, pk=pk, user=request.user)
 
     if request.method == 'POST':
         bolo.delete()
         return redirect('catalogo:lista_bolos')
 
     return render(request, 'catalogo/bolo_confirmar_exclusao.html', {'bolo' : bolo})
+
