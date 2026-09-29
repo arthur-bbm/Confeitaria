@@ -15,7 +15,7 @@ def lista_bolos(request):
     return render(request,
                   'catalogo/lista_bolos.html',
                   {'bolos' : bolos})
-
+@login_required()
 def novo_bolo(request):
     if request.method == 'POST':
         form = BoloForm(request.POST, request.FILES)
